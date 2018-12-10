@@ -37,9 +37,9 @@ View - welcome/index.php
 <div>
   {path}
     {to}
-	  {data}
+      {data}
         <p>{key}</p>
-	  {/data}
+      {/data}
     {/to}
   {/path}
 </div>
