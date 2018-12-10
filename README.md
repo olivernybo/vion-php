@@ -7,6 +7,6 @@
 ## Functions
 
 ### view()
-´´´php
+```php
 $this->vion->view();
-´´´
+```
