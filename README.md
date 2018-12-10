@@ -21,12 +21,12 @@ Controller - Welcome/index
 ```
 ```php
 $some_data = array(
-	array(
-		'key' => 'data'
-	),
-	array(
-		'key' => 'data'
-	)
+  array(
+    'key' => 'data'
+  ),
+  array(
+    'key' => 'data'
+  )
 );
 $this->vion->set_data($some_data, 'path', 'to', 'data');
 ```
@@ -35,12 +35,12 @@ View - welcome/index.php
 ```
 ```html
 <div>
-	{path}
-		{to}
-			{data}
-				<p>{key}</p>
-			{/data}
-		{/to}
-	{/path}
+  {path}
+	{to}
+	  {data}
+		<p>{key}</p>
+	  {/data}
+	{/to}
+  {/path}
 </div>
 ```
