@@ -36,11 +36,11 @@ View - welcome/index.php
 ```html
 <div>
   {path}
-	{to}
+    {to}
 	  {data}
-		<p>{key}</p>
+        <p>{key}</p>
 	  {/data}
-	{/to}
+    {/to}
   {/path}
 </div>
 ```
