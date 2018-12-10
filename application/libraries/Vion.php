@@ -28,7 +28,7 @@ class Vion {
 	
 	public function view($template = null)
 	{
-		$this->add_view($this->ci->router->fetch_method(), $this->ci->router->fetch_class().'/')
+		$this->add_view($this->ci->router->fetch_method(), $this->ci->router->fetch_class())
 			->add_template($template)
 			->load_user_data()
 			->parse_views();
@@ -38,10 +38,10 @@ class Vion {
 	{
 		if (is_array($html)) {
 			foreach ($html as $value) {
-				$this->views[] = $folder.$value;
+				$this->views[] = ($folder ? $folder.'/' : '').$value;
 			}
 		} else if (is_string($html)) {
-			$this->views[] = $folder.$html;
+			$this->views[] = ($folder ? $folder.'/' : '').$html;
 		} else {
 			throw new Exception('First argument must be type string or array.');
 		}
@@ -52,6 +52,8 @@ class Vion {
 	public function parse_view($html)
 	{
 		$this->ci->parser->parse($html, $this->data);
+
+		return $this;
 	}
 
 	public function parse_views()
@@ -59,6 +61,8 @@ class Vion {
 		foreach ($this->views as $html) {
 			$this->parse_view($html);
 		}
+
+		return $this;
 	}
 
 	public function load_user_data()
