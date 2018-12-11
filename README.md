@@ -44,3 +44,13 @@ View - welcome/index.php
   {/path}
 </div>
 ```
+
+## Other functions
+
+### add_view
+```
+Controller - Welcome/index
+```
+```php
+$this->vion->add_view('string' || array('of', 'strings') [, 'folder']);
+```
