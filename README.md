@@ -11,7 +11,7 @@
 Controller - Welcome/index
 ```
 ```php
-$this->vion->view();
+$this->vion->view(['template']);
 ```
 This function will automatically search your views folder for a folder, with the controllers name and a php file, with the methods name.
 
