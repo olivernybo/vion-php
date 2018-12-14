@@ -110,7 +110,11 @@ class Vion {
 		$curr = &$this->data;
 
 		foreach($args as $key) {
-		   $curr = &$curr[$key];
+			if ($key) {
+				$curr = &$curr[$key];
+			} else {
+				$curr = &$curr[];
+			}
 		}
 
 		$curr = $data;
