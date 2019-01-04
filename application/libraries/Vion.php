@@ -38,7 +38,11 @@ class Vion {
 	{
 		if (is_array($html)) {
 			foreach ($html as $value) {
-				$this->views[] = ($folder ? $folder.'/' : '').$value;
+				if (is_string($value)) {
+					$this->views[] = ($folder ? $folder.'/' : '').$value;
+				} else {
+					throw new Exception('Array must be made of type string.');
+				}
 			}
 		} else if (is_string($html)) {
 			$this->views[] = ($folder ? $folder.'/' : '').$html;
@@ -105,11 +109,11 @@ class Vion {
 		return $this;
 	}
 
-	public function set_data($data, string ...$args)
+	public function set_data($data, string ...$path)
 	{
 		$curr = &$this->data;
 
-		foreach($args as $key) {
+		foreach($path as $key) {
 			if ($key) {
 				$curr = &$curr[$key];
 			} else {
