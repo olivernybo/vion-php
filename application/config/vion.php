@@ -39,3 +39,12 @@ $config['constants'] = array(
 		)
 	)
 );
+
+$config['auto_functions'] = array(
+	'My_library' => array(
+		'my_function' => array(
+			'my_arg1',
+			'my_arg1'
+		)
+	)
+);

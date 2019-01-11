@@ -24,6 +24,16 @@ class Vion {
 		foreach ($this->ci->config->item('constants') as $key => $value) {
 			$this->set_data($value, $key);
 		}
+		
+		foreach ($this->ci->config->item('auto_functions') as $library => $methods) {
+			if (!class_exists($library)) {
+				$this->ci->load->library($library);
+			}
+			foreach ($methods as $method => $args) {
+				$lib = strtolower($library);
+				call_user_func_array(array($this->ci->$lib, $method), $args);
+			}
+		}
 	}
 	
 	public function view($template = null)
