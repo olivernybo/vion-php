@@ -32,10 +32,7 @@ $config['standard_template'] = 'main';
 $config['constants'] = array(
 	'css' => array(
 		array(
-			'style' => base_url('css1')
-		),
-		array(
-			'style' => base_url('css2')
+			'style' => base_url('assets/css/main.css')
 		)
 	)
 );
