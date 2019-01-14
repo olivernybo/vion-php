@@ -37,7 +37,7 @@ $config['constants'] = array(
 	)
 );
 
-$config['auto_functions'] = array(
+$config['autoload'] = array(
 	'My_library' => array(
 		'my_function' => array(
 			'my_arg1',

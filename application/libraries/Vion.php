@@ -25,7 +25,7 @@ class Vion {
 			$this->set_data($value, $key);
 		}
 		
-		foreach ($this->ci->config->item('auto_functions') as $library => $methods) {
+		foreach ($this->ci->config->item('autoload') as $library => $methods) {
 			if (!class_exists($library)) {
 				$this->ci->load->library($library);
 			}
