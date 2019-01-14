@@ -11,6 +11,7 @@ class Vion {
 
 	public function __construct()
 	{
+		define('VION_VERSION', file_get_contents(FCPATH.'/.vion_version'));
 		$this->ci = &get_instance();
 
 		$this->ci->config->load('vion');
@@ -134,5 +135,10 @@ class Vion {
 		$curr = $data;
 
 		return $this;
+	}
+
+	public function update()
+	{
+		
 	}
 }
