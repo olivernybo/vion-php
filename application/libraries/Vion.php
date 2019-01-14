@@ -11,7 +11,7 @@ class Vion {
 
 	public function __construct()
 	{
-		define('VION_VERSION', file_get_contents(FCPATH.'/.vion_version'.date('Ymdhis')));
+		define('VION_VERSION', file_get_contents(FCPATH.'.vion_version'));
 		$this->ci = &get_instance();
 
 		$this->ci->config->load('vion');
@@ -139,10 +139,10 @@ class Vion {
 
 	public function update()
 	{
-		$github_version = file_get_contents('https://raw.githubusercontent.com/olivernybo/vion/master/.vion_version?'.date('Ymdhis'));
+		$github_version = file_get_contents('https://raw.githubusercontent.com/olivernybo/vion/master/.vion_version?f='.date('Ymdhis'));
 
 		if ($github_version !== VION_VERSION) {
-			$vion = file_get_contents('https://raw.githubusercontent.com/olivernybo/vion/master/application/libraries/Vion.php?'.date('Ymdhis'));
+			$vion = file_get_contents('https://raw.githubusercontent.com/olivernybo/vion/master/application/libraries/Vion.php?f='.date('Ymdhis'));
 
 			echo $github_version;
 
