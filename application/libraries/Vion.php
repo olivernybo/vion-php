@@ -139,6 +139,12 @@ class Vion {
 
 	public function update()
 	{
-		
+		$github_version = file_get_contents('https://raw.githubusercontent.com/olivernybo/vion/master/.vion_version');
+
+		if ($github_version !== VION_VERSION) {
+			$vion = file_get_contents('https://raw.githubusercontent.com/olivernybo/vion/master/application/libraries/Vion.php');
+
+			file_put_contents(__FILE__, $vion);
+		}
 	}
 }
