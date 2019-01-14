@@ -145,6 +145,7 @@ class Vion {
 			$vion = file_get_contents('https://raw.githubusercontent.com/olivernybo/vion/master/application/libraries/Vion.php');
 
 			file_put_contents(__FILE__, $vion);
+			file_put_contents(FCPATH.'/.vion_version', $github_version);
 		}
 	}
 }
