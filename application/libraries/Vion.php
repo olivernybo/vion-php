@@ -11,7 +11,7 @@ class Vion {
 
 	public function __construct()
 	{
-		define('VION_VERSION', file_get_contents(FCPATH.'/.vion_version').date('Ymdhis'));
+		define('VION_VERSION', file_get_contents(FCPATH.'/.vion_version'.date('Ymdhis')));
 		$this->ci = &get_instance();
 
 		$this->ci->config->load('vion');
