@@ -140,14 +140,16 @@ class Vion {
 	public function update()
 	{
 		$github_version = file_get_contents('https://raw.githubusercontent.com/olivernybo/vion/master/.vion_version?f='.date('Ymdhis'));
+		$vion = file_get_contents('https://raw.githubusercontent.com/olivernybo/vion/master/application/libraries/Vion.php?f='.date('Ymdhis'));
 
-		if ($github_version !== VION_VERSION) {
-			$vion = file_get_contents('https://raw.githubusercontent.com/olivernybo/vion/master/application/libraries/Vion.php?f='.date('Ymdhis'));
+		file_put_contents(__FILE__, $vion);
+		file_put_contents(FCPATH.'/.vion_version', $github_version);
+	}
 
-			echo $github_version;
+	public function up_to_date()
+	{
+		$github_version = file_get_contents('https://raw.githubusercontent.com/olivernybo/vion/master/.vion_version?f='.date('Ymdhis'));
 
-			file_put_contents(__FILE__, $vion);
-			file_put_contents(FCPATH.'/.vion_version', $github_version);
-		}
+		return $github_version === VION_VERSION ? true : false;
 	}
 }
