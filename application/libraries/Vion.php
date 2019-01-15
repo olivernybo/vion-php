@@ -146,10 +146,10 @@ class Vion {
 		file_put_contents(FCPATH.'/.vion_version', $github_version);
 	}
 
-	public function up_to_date()
+	public function updates_available()
 	{
 		$github_version = file_get_contents('https://raw.githubusercontent.com/olivernybo/vion/master/.vion_version?f='.date('Ymdhis'));
 
-		return $github_version === VION_VERSION ? true : false;
+		return $github_version === VION_VERSION ? false : $github_version;
 	}
 }
