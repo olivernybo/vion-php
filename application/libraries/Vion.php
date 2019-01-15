@@ -26,13 +26,18 @@ class Vion {
 			$this->set_data($value, $key);
 		}
 		
-		foreach ($this->ci->config->item('autoload') as $library => $methods) {
-			if (!class_exists($library)) {
-				$this->ci->load->library($library);
+		foreach ($this->ci->config->item('autoload') as $library => $args) {
+			if (is_string($args)) {
+				$library = $args;
+				$args = array();
 			}
-			foreach ($methods as $method => $args) {
-				$lib = strtolower($library);
-				call_user_func_array(array($this->ci->$lib, $method), $args);
+			$alias = $args['alias'] ?: null;
+			if (!$this->ci->load->is_loaded($library)) {
+				$this->ci->load->library($library, null, $alias);
+			}
+			foreach ($args['methods'] as $method => $arguments) {
+				$lib = $alias ? strtolower($alias) : strtolower($library);
+				call_user_func_array(array($this->ci->$lib, $method), $arguments);
 			}
 		}
 	}
