@@ -22,10 +22,10 @@ Controller - Welcome/index
 ```php
 $some_data = array(
   array(
-    'key' => 'data'
+    'key' => 'data1'
   ),
   array(
-    'key' => 'data'
+    'key' => 'data2'
   )
 );
 $this->vion->set_data($some_data, 'path', 'to', 'data');
@@ -44,6 +44,17 @@ View - welcome/index.php
   {/path}
 </div>
 ```
+Will result in:
+```html
+<div>
+  <p>data1</p>
+  <p>data2</p>
+</div>
+```
+<div>
+  <p>data1</p>
+  <p>data2</p>
+</div>
 
 ## Other functions
 
