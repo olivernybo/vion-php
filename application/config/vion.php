@@ -38,13 +38,20 @@ $config['constants'] = array(
 );
 
 $config['autoload'] = array(
-	'My_library' => array(
-		'alias' => 'my_lib',
-		'methods' => array(
-			'my_function' => array(
-				'my_arg1',
-				'my_arg1'
+	'libraries' => array(
+		'My_library' => array(
+			'alias' => 'my_lib',
+			'methods' => array(
+				'my_function' => array(
+					'my_arg1',
+					'my_arg1'
+				)
 			)
 		)
+	),
+	'classes' => array(
+		'My_class'
 	)
 );
+
+$config['class_folder'] = 'classes';

@@ -18,6 +18,8 @@ class Vion {
 		$this->ci->load->database();
 		$this->ci->load->library('session');
 		$this->ci->load->library('parser');
+		$class_folder = APPPATH.$this->ci->config->item('class_folder');
+		define('VION_CLASS_PATH', $class_folder{-1} == '/' ? $class_folder : $class_folder.'/');
 		
 		$this->data = array();
 		$this->views = array();
@@ -26,7 +28,7 @@ class Vion {
 			$this->set_data($value, $key);
 		}
 		
-		foreach ($this->ci->config->item('autoload') as $library => $args) {
+		foreach ($this->ci->config->item('autoload')['libraries'] as $library => $args) {
 			if (is_string($args)) {
 				$library = $args;
 				$args = array();
@@ -40,6 +42,8 @@ class Vion {
 				call_user_func_array(array($this->ci->$lib, $method), $arguments);
 			}
 		}
+
+		$this->load_class($this->ci->config->item('autoload')['classes']);
 	}
 	
 	public function view($template = null)
@@ -140,6 +144,18 @@ class Vion {
 		$curr = $data;
 
 		return $this;
+	}
+
+	public function load_class($class)
+	{
+		if (is_array($class)) {
+			foreach ($class as $c) {
+				$this->load_class($c);
+			}
+		} else if (is_string($class)) {
+			$class_path = VION_CLASS_PATH.$class.'.php';
+			include $class_path;
+		}
 	}
 
 	public function update()
