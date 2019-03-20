@@ -1,3 +1,4 @@
+[![CodeFactor](https://www.codefactor.io/repository/github/olivernybo/vion/badge)](https://www.codefactor.io/repository/github/olivernybo/vion)
 # Vion
 
 ## Table of contents
