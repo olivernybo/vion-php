@@ -7,25 +7,27 @@ class Vion {
 
 	public $views;
 	public $data;
-	public $user;
 
 	public function __construct()
 	{
-		define('VION_VERSION', file_get_contents(FCPATH.'.vion_version'));
 		$this->ci = &get_instance();
 
 		$this->ci->config->load('vion');
 		$this->ci->load->database();
 		$this->ci->load->library('session');
 		$this->ci->load->library('parser');
-		$class_folder = APPPATH.$this->ci->config->item('class_folder');
-		define('VION_CLASS_PATH', $class_folder{-1} == '/' ? $class_folder : $class_folder.'/');
 		
 		$this->data = array();
 		$this->views = array();
 
+		$this->define();
+
 		foreach ($this->ci->config->item('constants') as $key => $value) {
-			$this->set_data($value, $key);
+			$this->setData($value, $key);
+		}
+
+		if ($this->ci->config->item('load_sessions')) {
+			$this->loadDataFromSessions();
 		}
 		
 		foreach ($this->ci->config->item('autoload')['libraries'] as $library => $args) {
@@ -43,18 +45,27 @@ class Vion {
 			}
 		}
 
-		$this->load_class($this->ci->config->item('autoload')['classes']);
+		$this->loadClass($this->ci->config->item('autoload')['classes']);
+	}
+
+	private function define()
+	{
+		define('VION_VERSION', file_get_contents(FCPATH.'.vion_version'));
+
+		$class_folder = APPPATH.$this->ci->config->item('class_folder');
+		define('VION_CLASS_PATH', $class_folder{-1} == '/' ? $class_folder : $class_folder.'/');
+
+		define('VION_LOAD_TYPE_SESSION', 'VION_LOAD_TYPE_SESSION');
 	}
 	
 	public function view($template = null)
 	{
-		$this->add_view($this->ci->router->fetch_method(), $this->ci->router->fetch_class())
-			->add_template($template)
-			->load_user_data()
-			->parse_views();
+		$this->addView($this->ci->router->fetch_method(), $this->ci->router->fetch_class())
+			->addTemplate($template)
+			->parseViews();
 	}
 
-	public function add_view($html, $folder = '')
+	public function addView($html, $folder = '')
 	{
 		if (is_array($html)) {
 			foreach ($html as $value) {
@@ -73,40 +84,35 @@ class Vion {
 		return $this;
 	}
 
-	public function parse_view($html)
+	public function parseView($html)
 	{
 		$this->ci->parser->parse($html, $this->data);
 
 		return $this;
 	}
 
-	public function parse_views()
+	public function parseViews()
 	{
 		foreach ($this->views as $html) {
-			$this->parse_view($html);
+			$this->parseView($html);
 		}
 
 		return $this;
 	}
 
-	public function load_user_data()
+	public function loadDataFromSessions()
 	{
-		$sess_user_key = $this->ci->config->item('session_user_key') ?: 'user';
-
-		if ($this->ci->session->$sess_user_key) {
-			$query = $this->ci->db->where($this->ci->config->item('user_db_search_key'), $this->ci->session->user[$this->ci->config->item('user_db_search_key')])->get($this->ci->config->item('user_db_table'));
-
-			if ($query->num_rows()) {
-				$this->user = $query->result_array();
-				$user_key = $this->ci->config->item('data_user_key') ?: 'user';
-				$this->set_data($user_key, $this->user);
+		foreach ($this->ci->config->item('sessions') as $session => $path) {
+			$data = $this->ci->session->userdata($session);
+			if ($data) {
+				call_user_func_array(array($this, 'setData'), array_merge(array($data), $path));
 			}
 		}
 
 		return $this;
 	}
 
-	public function add_template($template = null)
+	public function addTemplate($template = null)
 	{
 		$template_top = array();
 		$template_bottom = array();
@@ -129,7 +135,7 @@ class Vion {
 		return $this;
 	}
 
-	public function set_data($data, string ...$path)
+	public function setData($data, string ...$path)
 	{
 		$curr = &$this->data;
 
@@ -146,11 +152,11 @@ class Vion {
 		return $this;
 	}
 
-	public function load_class($class)
+	public function loadClass($class)
 	{
 		if (is_array($class)) {
 			foreach ($class as $c) {
-				$this->load_class($c);
+				$this->loadClass($c);
 			}
 		} else if (is_string($class)) {
 			$class_path = VION_CLASS_PATH.$class.'.php';
@@ -167,7 +173,7 @@ class Vion {
 		file_put_contents(FCPATH.'/.vion_version', $github_version);
 	}
 
-	public function updates_available()
+	public function updatesAvailable()
 	{
 		$github_version = file_get_contents('https://raw.githubusercontent.com/olivernybo/vion/master/.vion_version?f='.date('Ymdhis'));
 

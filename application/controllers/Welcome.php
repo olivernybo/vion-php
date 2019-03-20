@@ -7,9 +7,9 @@ class Welcome extends CI_Controller {
 	{
 		$my_class = new My_class('var');
 		
-		$this->vion->set_data(get_class($this->vion), 'library')
-			->set_data(VIEWPATH.get_class($this).'/'.$this->router->fetch_method().'.php', 'view')
-			->set_data(APPPATH.'controllers/'.get_class($this).'.php', 'controller')
+		$this->vion->setData(get_class($this->vion), 'library')
+			->setData(VIEWPATH.get_class($this).'/'.$this->router->fetch_method().'.php', 'view')
+			->setData(APPPATH.'controllers/'.get_class($this).'.php', 'controller')
 			->view();
 	}
 }

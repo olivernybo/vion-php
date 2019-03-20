@@ -1,17 +1,16 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-// User database table
-$config['user_db_table'] = 'users';
-// What key to search in the database
-$config['user_db_search_key'] = 'u_email';
+$config['load_sessions'] = true;
 
-// What to set the user data key as
-$config['data_user_key'] = 'user';
-// What key to search in the sessions
-$config['session_user_key'] = 'user';
+$config['sessions'] = array(
+	'session_name' => array(
+		'data',
+		'index',
+		'path'
+	)
+);
 
-// The template folder the loader should look for
 $config['template_folder'] = 'templates';
 
 $config['templates'] = array(
