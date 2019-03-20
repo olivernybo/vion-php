@@ -14,7 +14,7 @@ $this->vion->view(['template']);
 ```
 This function will automatically search your views folder for a folder, with the controllers name and a php file, with the methods name. It then adds your template aswell.
 
-### seData
+### setData
 > Controller - Welcome/index
 
 ```php
@@ -79,6 +79,13 @@ This function parses the view cue.
 $this->vion->parseView('html');
 ```
 This function parses a view.
+
+### loadDataFromSessions
+```php
+$this->vion->loadDataFromSessions();
+```
+This function will load the sessions defined in the config into the data property.
+> If the `load_sessions` config is set to **true**, this function will automaticly run on page load.
 
 ## Properties
 
