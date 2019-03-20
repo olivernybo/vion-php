@@ -100,4 +100,4 @@ This property holds all data stored in Vion.
 ```php
 $this->vion->views;
 ```
-This property holds the view cue;
+This property holds the view cue.
