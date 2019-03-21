@@ -139,7 +139,7 @@ class Vion {
 	{
 		$curr = &$this->data;
 
-		foreach($path as $key) {
+		foreach ($path as $key) {
 			if ($key) {
 				$curr = &$curr[$key];
 			} else {
